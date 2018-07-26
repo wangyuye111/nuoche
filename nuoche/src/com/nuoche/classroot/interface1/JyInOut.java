@@ -19,9 +19,6 @@ import com.nuoche.classroot.interface4.SqlUtil;
 
 
 
-/*
- * ceshhi 
- */
 public class JyInOut {
 	protected HttpServletRequest request;
 	protected HttpServletResponse response;
