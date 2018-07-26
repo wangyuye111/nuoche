@@ -130,42 +130,50 @@ public class NuocheSqlUser_152  extends NuocheSqlManager implements NuocheSqlMFa
 			break;*/
 		case "jiqiuchewei":
 			if(current==0){
-				ressql = "select count(*) from release_table  where state="+arg[6]+" and click=0 and cw_states=0  and latitude between '"+arg[10]+"' and '"+arg[11]+"' and longitude between '"+arg[12]+"' and '"+arg[13]+"' and order_status=0 ";
+				/**
+				 * 暂时取消范围寻找
+				 */
+				ressql = "select count(*) from release_table  where state="+arg[6]+" and click=0 and cw_states=0 and order_status=0 ";
+				//ressql = "select count(*) from release_table  where state="+arg[6]+" and click=0 and cw_states=0  and latitude between '"+arg[10]+"' and '"+arg[11]+"' and longitude between '"+arg[12]+"' and '"+arg[13]+"' and order_status=0 ";
 			}else if(current==1){
 				if (Integer.parseInt(arg[7])==1) {
-					ressql = "select *, acos(cos("+arg[4]+"*pi()/180 )*cos(latitude*pi()/180)*cos("+arg[5]+"*pi()/180 -longitude*pi()/180)+sin("+arg[4]+"*pi()/180 )*sin(latitude*pi()/180))*6370996.81/1000  as juli from release_table  where state="+arg[6]+" and click=0 and cw_states=0 and price between 0 and 5 and order_status=0 order by price,juli  limit "+arg[3]+","+JyHelpManager.item+"";
+					/**
+					 * 修改通过经纬度计算距离方法；
+					 * 144-176
+					 */
+					ressql = "select *, ROUND( 6378.138 * 2 * ASIN( SQRT( POW( SIN( ( '"+arg[4]+"' * PI() / 180 - latitude * PI() / 180 ) / 2 ), 2 ) + COS('"+arg[4]+"' * PI() / 180) * COS(latitude * PI() / 180) * POW( SIN( ( '"+arg[5]+"' * PI() / 180 - longitude * PI() / 180 ) / 2 ), 2 ) ) )* 1000 ) AS juli from release_table  where state="+arg[6]+" and click=0 and cw_states=0 and price between 0 and 5 and order_status=0 order by price,juli  limit "+arg[3]+","+JyHelpManager.item+"";
 					break;
 				}else if (Integer.parseInt(arg[7])==2) {
-					ressql = "select *, acos(cos("+arg[4]+"*pi()/180 )*cos(latitude*pi()/180)*cos("+arg[5]+"*pi()/180 -longitude*pi()/180)+sin("+arg[4]+"*pi()/180 )*sin(latitude*pi()/180))*6370996.81/1000  as juli from release_table  where state="+arg[6]+" and click=0 and cw_states=0 and price between 5 and 10 and order_status=0 order by price, juli  limit "+arg[3]+","+JyHelpManager.item+"";
+					ressql = "select *, ROUND( 6378.138 * 2 * ASIN( SQRT( POW( SIN( ( '"+arg[4]+"' * PI() / 180 - latitude * PI() / 180 ) / 2 ), 2 ) + COS('"+arg[4]+"' * PI() / 180) * COS(latitude * PI() / 180) * POW( SIN( ( '"+arg[5]+"' * PI() / 180 - longitude * PI() / 180 ) / 2 ), 2 ) ) )* 1000 ) AS juli from release_table  where state="+arg[6]+" and click=0 and cw_states=0 and price between 5 and 10 and order_status=0 order by price desc, juli  limit "+arg[3]+","+JyHelpManager.item+"";
 					break;
 				}else if (Integer.parseInt(arg[7])==3) {
-					ressql = "select *, acos(cos("+arg[4]+"*pi()/180 )*cos(latitude*pi()/180)*cos("+arg[5]+"*pi()/180 -longitude*pi()/180)+sin("+arg[4]+"*pi()/180 )*sin(latitude*pi()/180))*6370996.81/1000  as juli from release_table  where state="+arg[6]+" and click=0 and cw_states=0 and price between 10 and 15 and order_status=0 order by price,juli  limit "+arg[3]+","+JyHelpManager.item+"";
+					ressql = "select *, ROUND( 6378.138 * 2 * ASIN( SQRT( POW( SIN( ( '"+arg[4]+"' * PI() / 180 - latitude * PI() / 180 ) / 2 ), 2 ) + COS('"+arg[4]+"' * PI() / 180) * COS(latitude * PI() / 180) * POW( SIN( ( '"+arg[5]+"' * PI() / 180 - longitude * PI() / 180 ) / 2 ), 2 ) ) )* 1000 ) AS juli from release_table  where state="+arg[6]+" and click=0 and cw_states=0 and price between 10 and 15 and order_status=0 order by price,juli  limit "+arg[3]+","+JyHelpManager.item+"";
 					break;
 				}else if (Integer.parseInt(arg[7])==4) {
-					ressql = "select *, acos(cos("+arg[4]+"*pi()/180 )*cos(latitude*pi()/180)*cos("+arg[5]+"*pi()/180 -longitude*pi()/180)+sin("+arg[4]+"*pi()/180 )*sin(latitude*pi()/180))*6370996.81/1000  as juli from release_table  where state="+arg[6]+" and click=0 and cw_states=0 and price between 15 and 20 and order_status=0 order by price,juli  limit "+arg[3]+","+JyHelpManager.item+"";
+					ressql = "select *, ROUND( 6378.138 * 2 * ASIN( SQRT( POW( SIN( ( '"+arg[4]+"' * PI() / 180 - latitude * PI() / 180 ) / 2 ), 2 ) + COS('"+arg[4]+"' * PI() / 180) * COS(latitude * PI() / 180) * POW( SIN( ( '"+arg[5]+"' * PI() / 180 - longitude * PI() / 180 ) / 2 ), 2 ) ) )* 1000 ) AS juli from release_table  where state="+arg[6]+" and click=0 and cw_states=0 and price between 15 and 20 and order_status=0 order by price,juli  limit "+arg[3]+","+JyHelpManager.item+"";
 					break;
 //				}else if (Integer.parseInt(arg[7])==5){
 //					ressql = "select *, acos(cos("+arg[4]+"*pi()/180 )*cos(latitude*pi()/180)*cos("+arg[5]+"*pi()/180 -longitude*pi()/180)+sin("+arg[4]+"*pi()/180 )*sin(latitude*pi()/180))*6370996.81/1000  as juli from release_table  where state="+arg[6]+" and click=0 and cw_states=0 and price >20 and order_status=0 order by juli  limit "+arg[3]+","+JyHelpManager.item+"";
 //					break;
 				}
 				if (Integer.parseInt(arg[8])==1) {
-					ressql = "select *,acos(cos("+arg[4]+"*pi()/180 )*cos(latitude*pi()/180)*cos("+arg[5]+"*pi()/180 -longitude*pi()/180)+sin("+arg[4]+"*pi()/180 )*sin(latitude*pi()/180))*6370996.81/1000  as juli from (select *,acos(cos("+arg[4]+"*pi()/180 )*cos(latitude*pi()/180)*cos("+arg[5]+"*pi()/180 -longitude*pi()/180)+sin("+arg[4]+"*pi()/180 )*sin(latitude*pi()/180))*6370996.81/1000  as juli from release_table) t1  where juli between 0 and 1 and state="+arg[6]+" and click=0 and cw_states=0  and latitude between '"+arg[10]+"' and '"+arg[11]+"' and longitude between '"+arg[12]+"' and '"+arg[13]+"' and order_status=0      order by juli  limit "+arg[3]+","+JyHelpManager.item+"";
+					ressql = "select * FROM (SELECT *, ROUND( 6378.138 * 2 * ASIN( SQRT( POW( SIN( ( '"+arg[4]+"' * PI() / 180 - latitude * PI() / 180 ) / 2 ), 2 ) + COS('"+arg[4]+"' * PI() / 180) * COS(latitude * PI() / 180) * POW( SIN( ( '"+arg[5]+"' * PI() / 180 - longitude * PI() / 180 ) / 2 ), 2 ) ) )* 1000 ) AS juli from release_table) t1  where juli between 0 and 1000 and state="+arg[6]+" and click=0 and cw_states=0  and order_status=0      order by juli  limit "+arg[3]+","+JyHelpManager.item+"";
 					break;
 				}else if (Integer.parseInt(arg[8])==2) {
-					ressql = "select *,acos(cos("+arg[4]+"*pi()/180 )*cos(latitude*pi()/180)*cos("+arg[5]+"*pi()/180 -longitude*pi()/180)+sin("+arg[4]+"*pi()/180 )*sin(latitude*pi()/180))*6370996.81/1000  as juli from (select *,acos(cos("+arg[4]+"*pi()/180 )*cos(latitude*pi()/180)*cos("+arg[5]+"*pi()/180 -longitude*pi()/180)+sin("+arg[4]+"*pi()/180 )*sin(latitude*pi()/180))*6370996.81/1000  as juli from release_table) t1  where juli between 1 and 3 and state="+arg[6]+" and click=0 and cw_states=0  and latitude between '"+arg[10]+"' and '"+arg[11]+"' and longitude between '"+arg[12]+"' and '"+arg[13]+"' and order_status=0      order by juli  limit "+arg[3]+","+JyHelpManager.item+"";
+					ressql = "select * FROM (SELECT *, ROUND( 6378.138 * 2 * ASIN( SQRT( POW( SIN( ( '"+arg[4]+"' * PI() / 180 - latitude * PI() / 180 ) / 2 ), 2 ) + COS('"+arg[4]+"' * PI() / 180) * COS(latitude * PI() / 180) * POW( SIN( ( '"+arg[5]+"' * PI() / 180 - longitude * PI() / 180 ) / 2 ), 2 ) ) )* 1000 ) AS juli from release_table) t1  where juli between 1000 and 3000 and state="+arg[6]+" and click=0 and cw_states=0  and order_status=0      order by juli  limit "+arg[3]+","+JyHelpManager.item+"";
 					break;
 				}else if (Integer.parseInt(arg[8])==3) {
-					ressql = "select *,acos(cos("+arg[4]+"*pi()/180 )*cos(latitude*pi()/180)*cos("+arg[5]+"*pi()/180 -longitude*pi()/180)+sin("+arg[4]+"*pi()/180 )*sin(latitude*pi()/180))*6370996.81/1000  as juli from (select *,acos(cos("+arg[4]+"*pi()/180 )*cos(latitude*pi()/180)*cos("+arg[5]+"*pi()/180 -longitude*pi()/180)+sin("+arg[4]+"*pi()/180 )*sin(latitude*pi()/180))*6370996.81/1000  as juli from release_table) t1  where juli between 3 and 5 and state="+arg[6]+" and click=0 and cw_states=0  and latitude between '"+arg[10]+"' and '"+arg[11]+"' and longitude between '"+arg[12]+"' and '"+arg[13]+"' and order_status=0      order by juli  limit "+arg[3]+","+JyHelpManager.item+"";
+					ressql = "select * FROM (SELECT *, ROUND( 6378.138 * 2 * ASIN( SQRT( POW( SIN( ( '"+arg[4]+"' * PI() / 180 - latitude * PI() / 180 ) / 2 ), 2 ) + COS('"+arg[4]+"' * PI() / 180) * COS(latitude * PI() / 180) * POW( SIN( ( '"+arg[5]+"' * PI() / 180 - longitude * PI() / 180 ) / 2 ), 2 ) ) )* 1000 ) AS juli from release_table) t1  where juli between 3000 and 5000 and state="+arg[6]+" and click=0 and cw_states=0  and order_status=0      order by juli  limit "+arg[3]+","+JyHelpManager.item+"";
 					break;
 				}else if (Integer.parseInt(arg[8])==4) {
-					ressql = "select *,acos(cos("+arg[4]+"*pi()/180 )*cos(latitude*pi()/180)*cos("+arg[5]+"*pi()/180 -longitude*pi()/180)+sin("+arg[4]+"*pi()/180 )*sin(latitude*pi()/180))*6370996.81/1000  as juli from (select *,acos(cos("+arg[4]+"*pi()/180 )*cos(latitude*pi()/180)*cos("+arg[5]+"*pi()/180 -longitude*pi()/180)+sin("+arg[4]+"*pi()/180 )*sin(latitude*pi()/180))*6370996.81/1000  as juli from release_table) t1  where juli between 5 and 10 and state="+arg[6]+" and click=0 and cw_states=0  and latitude between '"+arg[10]+"' and '"+arg[11]+"' and longitude between '"+arg[12]+"' and '"+arg[13]+"' and order_status=0      order by juli  limit "+arg[3]+","+JyHelpManager.item+"";
+					ressql = "select * FROM (SELECT *, ROUND( 6378.138 * 2 * ASIN( SQRT( POW( SIN( ( '"+arg[4]+"' * PI() / 180 - latitude * PI() / 180 ) / 2 ), 2 ) + COS('"+arg[4]+"' * PI() / 180) * COS(latitude * PI() / 180) * POW( SIN( ( '"+arg[5]+"' * PI() / 180 - longitude * PI() / 180 ) / 2 ), 2 ) ) )* 1000 ) AS juli from release_table) t1  where juli between 5000 and 10000 and state="+arg[6]+" and click=0 and cw_states=0  and order_status=0      order by juli  limit "+arg[3]+","+JyHelpManager.item+"";
 					break;
 				}
 				if (arg[9]!=""||arg[9]!=null) {
-					ressql = "select *,acos(cos("+arg[4]+"*pi()/180 )*cos(latitude*pi()/180)*cos("+arg[5]+"*pi()/180 -longitude*pi()/180)+sin("+arg[4]+"*pi()/180 )*sin(latitude*pi()/180))*6370996.81/1000  as juli from (select *,acos(cos("+arg[4]+"*pi()/180 )*cos(latitude*pi()/180)*cos("+arg[5]+"*pi()/180 -longitude*pi()/180)+sin("+arg[4]+"*pi()/180 )*sin(latitude*pi()/180))*6370996.81/1000  as juli from release_table) t1  where place like '%"+arg[9]+"%' and state="+arg[6]+" and click=0 and cw_states=0  and latitude between '"+arg[10]+"' and '"+arg[11]+"' and longitude between '"+arg[12]+"' and '"+arg[13]+"' and order_status=0      order by juli  limit "+arg[3]+","+JyHelpManager.item+"";
+					ressql = "select * FROM (SELECT *, ROUND( 6378.138 * 2 * ASIN( SQRT( POW( SIN( ( '"+arg[4]+"' * PI() / 180 - latitude * PI() / 180 ) / 2 ), 2 ) + COS('"+arg[4]+"' * PI() / 180) * COS(latitude * PI() / 180) * POW( SIN( ( '"+arg[5]+"' * PI() / 180 - longitude * PI() / 180 ) / 2 ), 2 ) ) )* 1000 ) AS juli from release_table) t1  where place like '%"+arg[9]+"%' and state="+arg[6]+" and click=0 and cw_states=0  and order_status=0      order by juli  limit "+arg[3]+","+JyHelpManager.item+"";
 					break;
 				}
-				ressql = "select *,acos(cos("+arg[4]+"*pi()/180 )*cos(latitude*pi()/180)*cos("+arg[5]+"*pi()/180 -longitude*pi()/180)+sin("+arg[4]+"*pi()/180 )*sin(latitude*pi()/180))*6370996.81/1000  as juli from release_table   where state="+arg[6]+" and click=0 and cw_states=0  and latitude between '"+arg[10]+"' and '"+arg[11]+"' and longitude between '"+arg[12]+"' and '"+arg[13]+"' and order_status=0      order by juli  limit "+arg[3]+","+JyHelpManager.item+"";
+				ressql = "select * FROM (SELECT *, ROUND( 6378.138 * 2 * ASIN( SQRT( POW( SIN( ( '"+arg[4]+"' * PI() / 180 - latitude * PI() / 180 ) / 2 ), 2 ) + COS('"+arg[4]+"' * PI() / 180) * COS(latitude * PI() / 180) * POW( SIN( ( '"+arg[5]+"' * PI() / 180 - longitude * PI() / 180 ) / 2 ), 2 ) ) )* 1000 ) AS juli from release_table   where state="+arg[6]+" and click=0 and cw_states=0 and order_status=0      order by juli  limit "+arg[3]+","+JyHelpManager.item+"";
 				
 			}else if(current==2){
 				ressql = "select * from user_data where id ="+arg[2];

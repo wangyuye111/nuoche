@@ -2,12 +2,12 @@ package com.nuoche.classroot.interface4;
 
 public class JyGlobalConstant {
 
-	private static String ipAddr = "127.0.0.1";
-	private static String dbUser = "root";//nuoche
-	private static String dbPwd = "123";
-//	private static String ipAddr = "47.106.140.170";
-//	private static String dbUser = "db_user";//nuoche
-//	private static String dbPwd = "nuoche123";
+//	private static String ipAddr = "127.0.0.1";
+//	private static String dbUser = "root";//nuoche
+//	private static String dbPwd = "121007";
+	private static String ipAddr = "47.106.140.170";
+	private static String dbUser = "db_user";//nuoche
+	private static String dbPwd = "nuoche123";
 	//private static String ipAddr = "121.42.136.119";
 	private static String dbPort = "3306";
 	//private static String dbUser = "wxjd";

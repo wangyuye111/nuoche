@@ -185,20 +185,20 @@ NuocheInOutFace {
 			arg[4]=list.get(0).get("user_latitude").toString();
 			arg[5]=list.get(0).get("user_longitude").toString();
 		}
-		arg = Arrays.copyOfRange(arg, 0, arg.length+8);
-		double aa[]=getAround(Double.parseDouble(arg[4]), Double.parseDouble(arg[5]), 5000);
-		arg[10]=aa[0]+"";  //纬度最大值
-		arg[11]=aa[2]+"";  //纬度最大值
-		arg[12]=aa[1]+"";  //经度最小值
-		arg[13]=aa[3]+"";  //经度最大值
-		System.out.println("------------------------aa[0]"+aa[0]);
-		System.out.println("------------------------aa[1]"+aa[1]);
-		System.out.println("------------------------aa[2]"+aa[2]);
-		System.out.println("------------------------aa[3]"+aa[3]);
+		/**
+		 * 暂时取消范围搜索车位
+		 */
+//		arg = Arrays.copyOfRange(arg, 0, arg.length+8);
+//		double aa[]=getAround(Double.parseDouble(arg[4]), Double.parseDouble(arg[5]), 5000);
+//		arg[10]=aa[0]+"";  //纬度最大值
+//		arg[11]=aa[2]+"";  //纬度最大值
+//		arg[12]=aa[1]+"";  //经度最小值
+//		arg[13]=aa[3]+"";  //经度最大值
+//		System.out.println("------------------------aa[0]"+aa[0]);
+//		System.out.println("------------------------aa[1]"+aa[1]);
+//		System.out.println("------------------------aa[2]"+aa[2]);
+//		System.out.println("------------------------aa[3]"+aa[3]);
 		sql = sqlmface.searchSqlface(0, arg);
-		System.out.println("计算经纬度----------------------"+sql);
-		System.out.println(sql);
-		log.send(DataType.basicType, "01152", "需求车位信息sql-",sql);
 		int total=sqlUtil.get_int(sql);
 		System.out.println(total);
 		pages=hm.pages(arg[3], total);
@@ -215,7 +215,10 @@ NuocheInOutFace {
 			times = time_cals(list1.get(i).get("end_timef").toString());
 			BigDecimal b = new BigDecimal(Double.parseDouble(list1.get(i).get("juli").toString()));
 			double f1 = b.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
-			System.out.println("f1------------------------"+f1);
+			f1=f1/1000;
+			String min =list1.get(i).get("price").toString();
+			System.out.println("----------------------------");
+			System.out.println("price"+min+"-------"+"juli"+f1);
 			list1.get(i).put("juli", f1);
 			list1.get(i).put("times", times);
 		}
