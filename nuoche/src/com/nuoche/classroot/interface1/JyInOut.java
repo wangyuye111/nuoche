@@ -24,7 +24,6 @@ public class JyInOut {
 	protected HttpServletRequest request;
 	protected HttpServletResponse response;
 	protected ArrayList<Map<String, Object>> list;
-	protected int id;
 
 	protected JyHelpManager hm = new JyHelpManager();
 
